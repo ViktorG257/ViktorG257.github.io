@@ -25,16 +25,32 @@
 			max-height: 100%;
 		}
 	</style>
+	
+	<style>
+		h2 {text-align: center;}
+
+		.map-wrapper {display: flex;justify-content: center;margin-top: 20px;}
+
+		.map-box {background:#f9f9f9;padding: 15px;border-radius: 12px;box-shadow: 0 4px 12px rgba(0,0,0,0.15);}
+	</style>
 
 	<style>#map { width: 800px; height: 500px; }
 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 .legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
 </head>
 <body>
-<h2>
-<b>SDG 5<b> Achieve gender equality and empower all women and girls. <br><br> <b>SDG Target 5.5 <b> Ensure women's full and effective participation and equal opportunities for leadership at all levels of decision-making in political, economic and public life 
+<h2> 
+	<b>SDG 5<b> Achieve gender equality and empower all women and girls. 
+	<br><br> 
+	<b>SDG Target 5.5 <b> Ensure women's full and 	effective participation and equal opportunities for leadership at all levels of 	decision-making in political, economic and public life 
 </h2>
-<div id='map'></div>
+
+<div class="map-wrapper">
+	<div class="map-box">
+		<div id="map" aria-label="World map showing proportion of seats held by women in local governments"></div>
+	</div>
+</div>
+
 <script type="text/javascript" src="WiLG_2025_V5.js"></script>
 <script type="text/javascript">
 
@@ -149,7 +165,7 @@
 
 			labels.push(
     				`<i style="background:${getColor(from + 0.01)}"></i> ` +
-    				`${from.toFixed(2)}%${to ? `&ndash;${(to - 0.01).toFixed(2)}%` : '+'}`
+    				`${from.toFixed(2)}${to ? `&ndash;${(to - 0.01).toFixed(2)}%` : '+'}`
 			);
 		}
 
