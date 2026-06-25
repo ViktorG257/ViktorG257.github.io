@@ -244,6 +244,48 @@
       border:1px solid var(--border);
     }
 
+
+
+/* =========================
+   LIGHTBOX
+========================== */
+
+    .gallery-item img {
+  	cursor: pointer;
+  	width: 100%;
+  	height: 100%;
+ 	 object-fit: cover;
+  	border-radius: 16px;
+	}
+
+    .lightbox {
+  	display: none;
+  	position: fixed;
+ 	 z-index: 9999;
+ 	 left: 0;
+  	top: 0;
+  	width: 100vw;
+  	height: 100vh;
+  	background: rgba(0,0,0,0.9);
+  	justify-content: center;
+  	align-items: center;
+	}
+
+    .lightbox img {
+  	max-width: 95%;
+  	max-height: 95%;
+  	object-fit: contain;
+	}
+
+    .lightbox .close {
+  	position: absolute;
+ 	top: 20px;
+  	right: 30px;
+ 	font-size: 40px;
+  	color: white;
+  	cursor: pointer;
+	}
+
     /* =========================
        BUTTON
     ========================== */
@@ -561,6 +603,45 @@
     </div>
 
   </footer>
+
+
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+<span class="close">&times;</span>
+<img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const images = document.querySelectorAll(".gallery-item img");
+const closeBtn = document.querySelector(".close");
+
+images.forEach(img => {
+	img.addEventListener("click", () => {
+	lightboxImg.src = img.src;
+    	lightbox.style.display = "flex";
+  	});
+	});
+
+closeBtn.addEventListener("click", () => {
+  	lightbox.style.display = "none";
+	});
+
+lightbox.addEventListener("click", (e) => {
+  	if (e.target === lightbox) {
+    	lightbox.style.display = "none";
+  	}
+	});
+
+// Close with ESC key
+document.addEventListener("keydown", (e) => {
+  	if (e.key === "Escape") {
+    	lightbox.style.display = "none";
+  	}
+	});
+</script>
 
 </body>
 </html>
