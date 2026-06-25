@@ -1,0 +1,551 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="https://js.arcgis.com/5.0/embeddable-components/"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>GIS Project Title</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:720px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:220px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:500px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Student Portfolio VG
+        </div>
+
+        <a href="../VG_Website.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        NDVI Maps of Croatia
+      </h1>
+
+      <p style="text-align: justify;">
+	QGIS and ArcGIS online were used to process Sentinel 2 satellite data obtained from Google Earth Engine to determine the NDVI change in Croatia between the years of 2020 and 2025. The average of the data for both years was plotted for Croatia as a whole, but also for the region of Medimurje, and it was used to calculate the NDVI for both years. By substracting the NDVIs, the change in the NDVI over the years was obtained, and subsequently mapped, which could be used to implement re-forestation or vegetation-friendly environmental policies at both the regional and national scales.   
+
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Remote Sensing
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FEATURE IMAGE
+  ========================== -->
+
+  <div class="container">
+
+    <div class="feature-image">
+ 	<arcgis-embedded-map style="height:100%;width:100%;" item-id="58b5aa4458604646b37fa6e12ff8a7da" theme="light" bookmarks-enabled heading-enabled legend-enabled share-enabled scroll-enabled time-zone-label-enabled center="17.146075881878996,44.50791762915391"scale="4622324.434309" portal-url="https://uni-utrecht.maps.arcgis.com"></arcgis-embedded-map>
+    </div>
+    
+    <div class="feature-image">
+ 	<arcgis-embedded-map style="height:100%;width:100%;" item-id="ac78452a642c4665af020336eb62368d" theme="light" bookmarks-enabled heading-enabled legend-enabled share-enabled scroll-enabled time-zone-label-enabled center="16.480017357801692,46.418080179459196"scale="288895.277144" portal-url="https://uni-utrecht.maps.arcgis.com"></arcgis-embedded-map>
+    </div>
+
+  </div>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2> Project Overview </h2>
+
+            <ul style="text-align: justify">
+              <li> The practical goal of this project was to learn how to access, download, and process publicly available satellite data, as well as learn what NDVI is and how to calculate it. </li>
+              <li> The region of Medimurje was chosen since it is the region where I lived my whole life, so I thought I ought to know more about it. The same logic was extended to Croatia as a whole, since I was interested in how national policies (or lack thereof) affected the vegetation growth in the country. </li>
+              <li> The project looked into how the NDVI changed in both of the selected regions over the course of the past 5 years, as well as whether it was uniform across the area, or if some parts were in a better position than others. </li>
+              <li> The GIS methods allowed for a quick overview of the whole region thanks to already available satellite scans, which saves a lot of tedious manual data collection work. By utilising GIS processing techniques, broad-scale information can be displayed, which can then be used for future policies and development efforts focusing on planned forestry or land development. </li>
+            </ul>
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Methods</h2>
+
+            <ul style="text-align: justify">
+              <li> Public Sentinel-2 data was downloaded from Google Earth Engine. Depending on the size of the chosen region and the pixel resolution, the final file size and the time required to download it vastly differed. </li>
+	      <li> Ultimately, the resolution of 1 px=25 m was chosen for Medimurje, since it is a smaller region, and a resolution of 1 px=100 m was chosen for Croatia, since it is a country after all, no matter how small. </li>
+              <li> Data was processed using QGIS. True Colour images were created by adjusting the band configuration to the visible RGB colour scheme: red=Band 4, green=Band 3, blue=Band 2. </li>
+              <li> Then, false colour images were created by setting the bands to red=Band 8, green=Band 4, and blue=Band 3. These showed vegetation health in contrasting colour, providing for a clearer image. </li>
+              <li> NDVI was calculated for both data sets, separately for 2020 and 2025, by creating a new raster layer using the following formula: NDVI=(Band 8 - Band 4)/(Band 8 + Band 4). The NDVI was normalized to a minimum of -1 and a maximum of 1, and the RdYlGn colour scheme was chosen to intuitively represent unhealthy vegetation in red, and healthy in green. </li>
+              <li> The NDVI change over the 5 years was calculated using the following formula: ∆NDVI=NDVI (2025) - NDVI (2020). This resulted in an interesting map, which was again normalized according to the usual NDVI standards to allow for easy visual observations and conclusions. </li>
+	     <li> As QGIS had some rendering issues with the raster layers, the layers were uploaded to ArcGIS Online to allow for a better display, as well as providing an interactive map for the audience. </li>
+            </ul>
+
+          </div>
+
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Results & Findings</h2>
+
+            <p style="text-align: justify">
+		The NDVI for 2020 and 2025 for both Medimurje and Croatia showed healthy vegetational cover across the majority of the area, meaning that both of the areas of research were and still are in a good environmental position. <br> However, the map of the change in the NDVI showed a slightly different perspective. While Croatia mostly either has no NDVI change or a slight increase, with the mountainous regions displaying the largest NDVI increase from 2020 to 2025, other regions, Medimurje included, showed a neutral to a slightly decreasing trend. However, other parts of Medimurje showed a slight increase, showing a mosaicked pattern overall, with the mean average seemingly resulting in no net change in vegetation health. While this is not a cause for immediate concern, it should be looked into in future environmental and regional policies, and steps should be taken to revert the NDVI decrease, and ideally lead to its systematic increase. <br> If the current trend of the NDVI decrease is allowed to continue, it could lead to future deforestation and vegetation death, leading to an increase in local temperatures, formation of heat islands, reduced perceived pleasentess, reduced biodiversity, and other environmental concerns, which could in turn impact human lives.
+            </p>
+
+            <div class="gallery">
+
+              <div class="gallery-item">
+                <img src="Croatia2020.png">
+              </div>
+
+              <div class="gallery-item">
+                <img src="Croatia2025.png">
+              </div>
+
+              <div class="gallery-item">
+                <img src="Medimurje2020.png">
+              </div>
+
+	      <div class="gallery-item">
+                <img src="Medimurje2025.png">
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p style="text-align: justify">
+              I learnt how to download and manipulate the Google Earth Engine data, as well as how different band combinations can be combined to obtain various information maps and visualisations. I further learnt what NDVI is, how to calculate it, and it's significance for planning future environmental action. <br> This project was by far the smoothest-running one. Minus the slight hiccups with the rendering issues, everything went swimmingly. However, initial challenges included either selecting too large of a region, or too sharp a resolution for the data set, which led to abyssymal download times and file sizes which could not be processed. <br> Future improvements could include comparing individual data sets for more time periods, making a timelapse map of the change of NDVI across the months in a year for a specific region, and optimising the NDVI change colour gradient presentation. 
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3> Project Details </h3>
+
+            <p><strong> Student: </strong> Viktor Gombar </p>
+
+            <p><strong> Course: </strong> Geographical Information Systems (GIS) (UCSCIEESL5) </p>
+
+            <p><strong> Instructor: </strong> Dr. Britta Ricker  </p>
+
+            <p><strong> Date: </strong> Summer 2026 (11.-26.6.) </p>
+
+            <p><strong> Study Area: </strong> The Netherlands </p>
+
+          </div>
+
+          <!-- SOFTWARE -->
+          <div class="sidebar-card">
+
+            <h3> Software & Tools </h3>
+
+            <p> QGIS </p>
+
+            <p> ArcGIS Pro </p>
+
+            <p> Google Earth Engine </p>
+
+            <p> MapLibre GL </p>
+
+            <p> Python </p>
+
+          </div>
+
+          <!-- DOWNLOADS -->
+          <div class="sidebar-card">
+
+            <h3>Downloads</h3>
+
+            <a href="#" class="button">
+              Download Map PDF
+            </a>
+
+            <br><br>
+
+            <a href="#" class="button">
+              View Interactive Map
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

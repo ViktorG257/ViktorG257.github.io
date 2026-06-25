@@ -1,0 +1,535 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script type="module" src="https://js.arcgis.com/5.0/embeddable-components/"></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title> DEM of Western Northern Brabant</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:720px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:220px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:500px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Student Portfolio VG
+        </div>
+
+        <a href="../VG_Website.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        DEM of Western Northern Brabant
+      </h1>
+
+      <p style="text-align: justify;">
+        This project aimed to assess whether the present river corridor of the rivers De Dintel and De Mark in the western part of the 	Northern Brabant region in the Netherlands is different that the one mapped in the 1730s map "Brabantiae Batavae". This was 	attempted by using the DEM model of the region, and comparing it to the georeferenced version of the old map. Due to the accuracy 	issues of the old map, no conclusive answer could be reached, but a functional DEM map of the region was still obtained.
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Remote Sensing
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FEATURE IMAGE
+  ========================== -->
+
+  <div class="container">
+	<div class="feature-image">
+ 		<arcgis-embedded-map style="height:100%;width:100%;" item-id="78c5fafd6b1a4b5993905f7c6fc01dbc" theme="light" bookmarks-		enabled heading-enabled legend-enabled share-enabled scroll-enabled time-zone-label-enabled 	center="4.59324986000266,51.646593952788244"scale="144447.638572" portal-url="https://uni-utrecht.maps.arcgis.com"></arcgis-		embedded-map>
+	</div>
+  </div>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2> Project Overview </h2>
+
+            <ul style="text-align: justify;">
+              <li>This project served as a way for me to familiarise myself with the process of downloading, rendering, processing and mapping different types of data necessary to create a digital elevation model (DEM). It provided insights into digital surface models (DSM) and digital terrain models (DTM).</li>
+              <li>As the Netherlands is one of the rare countries which attempts to fully control its rivers, it was reasonable to expect that the river corridor and the water levels, and the river size in turn, changed since the Netherlands started implementing this policy. Therefore, an old map from the 1730s was chosen to compare with the modern Lidar data, to see if any noticeable changes could be observed. </li>
+              <li>This simultaneously served as a way to compare the advancement of cartography and mapping techniques, from the manual, old-fashioned ones used to create the 1730s map, to the digital, modern technology used to obtain the DTM and DSM data, as well as providing insights into the difference in their accuracies.</li>
+              <li>The region of western Northern Brabant was chosen after a beautiful old map of proper scale which encompassed it was found on www.oldmapsonline.org. However, it was also a region which had drastic urbanisation in the past 300 years, as well as having two clearly observable rivers, De Dintel and De Mark, which were though to be good reference materials.</li>
+	      <li> The main goal of this project was to see if any noticeable changes had in fact occured for the two rivers in question, but also to simply provide the DEM map of the region, and discuss any obvious changes of the landscape in comparison to the old map, thereby tracking the urban development of the region over time. </li>
+            </ul>
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Methods</h2>
+
+            <ul style="text-align: justify;">
+              <li> An old map of appropriate scale of a region in the Netherlands which had rivers was found on www.oldmapsonline.org. A map titled <em> Brabantiae Batavae pars occidentalis sive Antverpiensis tetrarchiae pars septentrionalis, comprehendens baroniam Bredanam, marchionatum Bergensem ad Zomam, aliasq. minores ditiones </em> was chosen. </li>
+              <li> Public Lidar data was downloaded for the Netherlands to create the DSM and DTM, and was processed in QGIS. The data raster was clipped to only the region of interest to decrease the file size, and the required rendering time. </li>
+              <li> The DSM and DTM were stylized to be clearly visible, and attractive to the eye. A colour gradient boundary was chosen to emphasize the values which were closer to the modern river banks, since they have relatively small elevation changes. A relief shading was added for both data sets to add visual texture and improve visual recognition. </li>
+              <li> The old map was manually georeferenced so that it could be imported as a spatial data file into the DEM map. This was achieved by mainly comparing the human settlements and roads displayed on the old map to their modern counterparts, since they usually* are not as prone to change as natural elements. After being imported, the map was clipped to only display the region of interest. </li>
+              <li> Different layers were overlayed, combined, and stylized to obtain various maps and infer results to the research question from them. </li>
+            </ul>
+
+          </div>
+
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Results & Findings</h2>
+
+            <p style="text-align: justify;">
+		This project found several inaccuracies in the map of the region from 1730s. The main issues included the relative positions of settlements or other map elements, as well as their proportionality on the map compared to their relative size. Due to this, while the general shape of the rivers seems to have remained unchanged, due to misalignment and disproportionality, no conclusive evidence can be obtained. <br> The DEM map of the region shows that the southern part of the ROI has a higher natural terrain elevation. It also shows that the river corridors around De Dintel and De Mark are relatively uniform in elevation, which would indicate that the rivers were not wild or had too strong of a flow over the years, which would carve a more drastic elevation change into the terrain. <br> Finally, the map nicely shows how some of the older settlements from the 1730s map grew and developed. Breda, which was the capital of the barony at the time, grew to be the central city of the region. Other marked cities, such as Zevenbergen and Oudenbosch, similarly grew, with the notable change being the merger of Etten and Leur into a single city as a result of urbanisation. Finally, some of the modern settlements did not exist on the 1730s map, which shows that they only developed after that time period, which provides historical insight into the urbanisation process of the region. <br> Further research could involve using maps from other time periods to map urban development of the region throughout history, and also potentially find a more suitable map for comparing the river corridors.
+            </p>
+
+            <div class="gallery">
+
+              <div class="gallery-item">
+                <img src="DEM_Northern_Brabant_VG.png">
+              </div>
+
+              <div class="gallery-item">
+                <img src="Brabantiae Batavae.png">
+              </div>
+	      
+            </div>
+
+          </div>
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p style="text-align: justify;">
+		This project was a great way to learn how to access, download and process .tiff data. Creating the DEM map felt amazing, 		as it felt like a first proper, official map created in my GIS career. While the project was simple enough to follow, 			there were some challenges along the way. <br> The first challenge was choosing a suitable region, or finding a suitable 		map. Depending on the approach, this could have taken a long period of time with no visible results. Since every map was 		made in different scale, outlined different things, and displayed various regions, there were many things to consider 			during the selection process, and that is without adding the additional variable of being able to choose <em> when </em> 		does the map display the region. <br> Secondly, after the map was found, trying to georeference it could pose issues, 			depending on how accurately it was created, and what it displayed. After some point, even doubling the number of 			georeference points did not seem to fix the small misalignment, which was frustrating. Therefore, the map choice heavily 		influenced how easy this part of the assignment would be. <br> Finally, choosing the proper colour gradient, gradient 			intensity, overlay, and transparency for all of the layers was the biggest challenge of them all. While some combinations 		worked great as a pair, the minute the 3rd layer was added, nothing was properly visible anymore... Also, this part 			involved the greatest subjectivity, as something which I find aesthetically pleasing might not seem as such to others. 			<br> For future improvements, a set of pre-prepared maps which work well could be provided, or some recommendations could 		be given to that end, just to make the process of merging the old map with the other raster layers less time-demanding. 		Also, it might be better to make multiple maps with only 2 layers overlayed at a time, rather than trying to fit 			everything in at once. 
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3> Project Details </h3>
+
+            <p><strong> Student: </strong> Viktor Gombar </p>
+
+            <p><strong> Course: </strong> Geographical Information Systems (GIS) (UCSCIEESL5) </p>
+
+            <p><strong> Instructor: </strong> Dr. Britta Ricker  </p>
+
+            <p><strong> Date: </strong> Summer 2026 (11.-26.6.) </p>
+
+            <p><strong> Study Area: </strong> The Netherlands </p>
+
+          </div>
+
+          <!-- SOFTWARE -->
+          <div class="sidebar-card">
+
+            <h3> Software & Tools </h3>
+
+            <p> QGIS </p>
+
+            <p> ArcGIS Pro </p>
+
+            <p> Google Earth Engine </p>
+
+            <p> MapLibre GL </p>
+
+            <p> Python </p>
+
+          </div>
+
+          <!-- DOWNLOADS -->
+          <div class="sidebar-card">
+
+            <h3>Downloads</h3>
+
+            <a href="#" class="button">
+              Download Map PDF
+            </a>
+
+            <br><br>
+
+            <a href="#" class="button">
+              View Interactive Map
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

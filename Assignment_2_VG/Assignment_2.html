@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title> Analysis of Spatial Data in Utrecht </title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-light:#dbeafe;
+      --border:#e5e7eb;
+      --shadow:0 10px 28px rgba(0,0,0,0.06);
+      --radius:20px;
+      --max-width:1150px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.8;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      text-decoration:none;
+      color:var(--accent);
+    }
+
+    .container{
+      width:min(92%, var(--max-width));
+      margin:auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 0;
+    }
+
+    .logo{
+      font-weight:700;
+      font-size:1.05rem;
+    }
+
+    .back-link{
+      color:var(--muted);
+      transition:0.2s ease;
+    }
+
+    .back-link:hover{
+      color:var(--accent);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      padding:6rem 0 4rem;
+    }
+
+    .hero h1{
+      font-family:'Merriweather',serif;
+      font-size:clamp(2.4rem,6vw,4.5rem);
+      line-height:1.15;
+      margin-bottom:1.3rem;
+    }
+
+    .hero p{
+      color:var(--muted);
+      max-width:800px;
+      font-size:1.1rem;
+    }
+
+    .hero-meta{
+      margin-top:2rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .meta-item{
+      background:var(--accent-light);
+      color:var(--accent);
+      padding:0.6rem 1rem;
+      border-radius:999px;
+      font-size:0.92rem;
+      font-weight:500;
+    }
+
+    /* =========================
+       FEATURE IMAGE
+    ========================== */
+
+    .feature-image{
+      height:720px;
+      background:linear-gradient(
+        135deg,
+        #dbeafe,
+        #eff6ff
+      );
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-size:1.2rem;
+      font-weight:600;
+      margin-bottom:5rem;
+      box-shadow:var(--shadow);
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    section{
+      padding-bottom:4rem;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+
+    .content-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2.2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .content-card h2{
+      font-family:'Merriweather',serif;
+      margin-bottom:1rem;
+      font-size:1.6rem;
+    }
+
+    .content-card p{
+      color:var(--muted);
+      margin-bottom:1.2rem;
+    }
+
+    .content-card ul{
+      padding-left:1.2rem;
+      color:var(--muted);
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================== */
+
+    .sidebar-card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      padding:2rem;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      margin-bottom:2rem;
+    }
+
+    .sidebar-card h3{
+      margin-bottom:1rem;
+      font-size:1.1rem;
+    }
+
+    .sidebar-card p{
+      color:var(--muted);
+      margin-bottom:0.7rem;
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       GALLERY
+    ========================== */
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1.5rem;
+      margin-top:2rem;
+    }
+
+    .gallery-item{
+      height:180px;
+      border-radius:16px;
+      background:linear-gradient(
+        135deg,
+        #e0ecff,
+        #f5f9ff
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#64748b;
+      font-weight:600;
+      border:1px solid var(--border);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button{
+      display:inline-block;
+      margin-top:1rem;
+      padding:0.95rem 1.4rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      transition:0.2s ease;
+    }
+
+    .button:hover{
+      opacity:0.92;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      padding:4rem 0;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:900px){
+
+      .content-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-image{
+        height:400px;
+      }
+
+      nav{
+        flex-direction:column;
+        gap:1rem;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="container">
+
+      <nav>
+
+        <div class="logo">
+          GIS Student Portfolio VG
+        </div>
+
+        <a href="../VG_Website.html" class="back-link">
+          ← Back to Portfolio
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="container">
+
+      <h1>
+        Analysis of Spatial Data in Utrecht
+      </h1>
+
+      <p style="text-align: justify">
+        This project focused on working with volunteered geographic information (VGI). It used VGI contributed by others to map how many 	historical sites in Utrecht are located within a certain walking distance of a hospital, determined by calculating and plotting 	the isochrones. The second part included collecting VGI ourselves, and using it to try and make a kernel density or an 	interpolation of the specific data value. However, this part did not work out due to data scarcity and the spatial distribution of 	the data.
+      </p>
+
+      <div class="hero-meta">
+
+        <div class="meta-item">
+          GIS Analysis
+        </div>
+
+        <div class="meta-item">
+          Remote Sensing
+        </div>
+
+        <div class="meta-item">
+          Sustainability
+        </div>
+
+        <div class="meta-item">
+          2026
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FEATURE IMAGE
+  ========================== -->
+
+  <div class="container">
+
+    <div class="feature-image">
+      <img src="Assignment_2.png">
+    </div>
+
+  </div>
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="content-grid">
+
+        <!-- LEFT CONTENT -->
+        <div>
+
+          <!-- PROJECT OVERVIEW -->
+          <div class="content-card">
+
+            <h2>Project Overview</h2>
+
+            <ul style="text-align: justify">
+              <li> The technical object of this project was to learn how to work with spatial and shapefile data in QGIS, as well as learning the pros and cons of VGI. </li>
+              <li> Utrecht was chosen as the city of interest since it is the city where I study, and I wanted to know more about it. Additionally, since I'm familiar with the city, I could use that to fact-check the VGI that was used for potential errors. </li>
+              <li> Since Utrecht has many historical sites, some of which are visited by tourists, I started wondering; how long would it take an injured person to walk from a historical site to the nearest hospital? This question was motivated by the idea of a tourist coming to visit, and then getting injured, from which a worst-case, least practical scenario was inferred. </li>
+              <li> GIS is recommended here since it deals with the average distance covered by an individual in a unit of time by utlising a specific mode of transport in the city's road network, all of which is heavily dependent on spatial data analysis. </li>
+	      <li> Second part of this project focused on trying to see how each of us can contribute to VGI, and how that process goes as a whole, as well as experiencing its advantages and drawbacks firsthand. </li>
+              <li> Finally, the data was supposed to be processed using kernel density function and interpolation to see how a map can be created when the data set is missing some data points, while still being plausible and useful for research, since there are rarely cases where we have ideal data sets present. </li>
+            </ul>
+
+          </div>
+
+          <!-- METHODS -->
+          <div class="content-card">
+
+            <h2>Methods</h2>
+
+            <ul style="text-align: justify">
+              <li> A map of Utrecht was downloaded, and building data was placed on it to determine the city borders in QGIS. </li>
+              <li> Different classifications of buildings determined via VGI were considered. One data set had to have a small number of points (3-6), while the other had to have a large number of data points. Ultimately, the historical points and hospitals were chosen. </li>
+              <li> Points were imported as both points and polygons. In locations where polygons overlapped with points, the poitns were deleted, and polygons were converted to centroids to avoid counting the same point multiple times.</li>
+              <li> After data processing, using a QGIS plugin, isochrones were plotted around each hospital centroid. The chosen mode of transport was set at walking, and isochrones were plotted within a 5 min, 10 min, 15 min, and 30 min walking distance. Originally, the 45 min isochrone was also plotted, but it was found that it caused too much visual clutter. </li>
+              <li> Then, the "count within polygon" function was applied to the isochrone polygons, and a choropleth gradient map was construed from the data set. </li>
+	      <li> For the second part, VGI was collected by biking to a location, and filling out a survey there. Survey had a bunch of classes, each with different values, which was evaluated by the individual at the location. </li>
+	      <li> To obtain the best spatial coverage, the individuals and groups biked to different areas of the city. </li>
+	      <li> After the data was collected, it was exported as a shapefile, and processed using QGIS. The data set was split between male and female respondents, to see if any differences occured in their perceptions. </li>
+	      <li> Data points deemed to be outliers, or not significant enough to be mapped, were deleted from the data set to optimize mapping quality. </li>
+	      <li> Finally, QGIS was supposed to be used to create either a heatmap or an interpolation of both data sets, and then to compare the differences. </li>
+            </ul>
+
+          </div>
+
+          <!-- RESULTS -->
+          <div class="content-card">
+
+            <h2>Results & Findings</h2>
+
+            <p>
+              The project found that according to VGI, there are 5 hospitals within the city of Utrecht, and over a 100 historical sites. <br> By plotting the isochrones, it was found that a person can reach the nearest hospital in the city by walking for at most 30 minutes from the majority of locations in the city, with the best coverage offered near the city centre, which is to be expected. <br> Furthermore, it was found that a lot of historical sites are located within at least 30 minutes of a hospital, but that a very small number of them are within <10 min of one. This was to be expected, as most of the hospitals were built relatively recently, compared to the historical sites which have been standing for a long period of time. <br> The largest number of historical sites is centered around Dom Toren in the city centre, which is convenient since that is also the area with the best hospital coverage. However, due to this, the map gradient around city centre could have been improved, by having a more fine distribution. <br> Finally, it can be seen that many historical sites in the far north and far south of the city lack the 30-minute walk medical coverage. While this might not pose an immediate problem, it could be worth considering establishing a new medical outpost in the region. Since another hospital would likely be obsolete for a city of Utrecht's size, care could be taken to optimise access to current medical infrastructure instead. <br> For the second part of the project, it was observed that the data points for men and women are quite scattered from one another. This was likely due to the distribution of pairs prior to data collection. Therefore, due to the spread of data points, and lack of sufficent sample size, no proper interpolation could be conducted. 
+            </p>
+
+            <div class="gallery">
+
+              <div class="gallery-item">
+                <img src="Isochrones.png">
+              </div>
+
+              <div class="gallery-item">
+                <img src="Data_Distribution.png">
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- REFLECTION -->
+          <div class="content-card">
+
+            <h2>Reflection</h2>
+
+            <p style="text-align: justify">
+              This project was great for getting the intial handle on file management in QGIS, as well as famiarising myself with the workings and capabilities of QGIS. Additionally, it provided great insight into the start of urban mapping, working with labeled data, the pros and cons of VGI data, as well as the hands-on experience of procuring VGI data ourselves. <br> However, the most challenging part of the first segment was determining which data sets to use. There were so many possibilities and combinations that it was difficult to decide, let alone find a suitable set pair. <br> Secondly, the VGI data we collected ourselves was fun, but due to various factors, the data set ended up being unusable for the type of map we wanted to make. <br> Future improvements could include establishing a clearer structure of how to approach the assignment, instead of immediately embarking upon trying to solve it.
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div>
+
+          <!-- PROJECT DETAILS -->
+          <div class="sidebar-card">
+
+            <h3> Project Details </h3>
+
+            <p><strong> Student: </strong> Viktor Gombar </p>
+
+            <p><strong> Course: </strong> Geographical Information Systems (GIS) (UCSCIEESL5) </p>
+
+            <p><strong> Instructor: </strong> Dr. Britta Ricker  </p>
+
+            <p><strong> Date: </strong> Summer 2026 (11.-26.6.) </p>
+
+            <p><strong> Study Area: </strong> The Netherlands </p>
+
+          </div>
+
+          <!-- SOFTWARE -->
+          <div class="sidebar-card">
+
+            <h3> Software & Tools </h3>
+
+            <p> QGIS </p>
+
+            <p> ArcGIS Pro </p>
+
+            <p> Google Earth Engine </p>
+
+            <p> MapLibre GL </p>
+
+            <p> Python </p>
+
+          </div>
+
+          <!-- DOWNLOADS -->
+          <div class="sidebar-card">
+
+            <h3>Downloads</h3>
+
+            <a href="#" class="button">
+              Download Map PDF
+            </a>
+
+            <br><br>
+
+            <a href="#" class="button">
+              View Interactive Map
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      © 2026 GIS Student Portfolio
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
