@@ -38,7 +38,7 @@
     }
 
     body{
-      font-family:'Inter',sans-serif;
+      font-family:"Times New Roman", Times, serif;
       background:var(--bg);
       color:var(--text);
       line-height:1.8;
@@ -378,7 +378,7 @@
         Analysis of Spatial Data in Utrecht
       </h1>
 
-      <p style="text-align: justify">
+      <p style="text-align: justify; text-indent: 1cm;">
         This project focused on working with volunteered geographic information (VGI). It used VGI contributed by others to map how many 	historical sites in Utrecht are located within a certain walking distance of a hospital, determined by calculating and plotting 	the isochrones. The second part included collecting VGI ourselves, and using it to try and make a kernel density or an 	interpolation of the specific data value. However, this part did not work out due to data scarcity and the spatial distribution of 	the data.
       </p>
 
@@ -453,10 +453,10 @@
             <h2>Methods</h2>
 
             <ul style="text-align: justify">
-              <li> A map of Utrecht was downloaded, and building data was placed on it to determine the city borders in QGIS. </li>
-              <li> Different classifications of buildings determined via VGI were considered. One data set had to have a small number of points (3-6), while the other had to have a large number of data points. Ultimately, the historical points and hospitals were chosen. </li>
+              <li> A map of Utrecht was downloaded using the QuickMapService OpenStreetMap plugin, and building data was placed on it using the Quick OSM plugin to determine the city borders in QGIS. </li>
+              <li> Different classifications of buildings determined via VGI were considered, found using Quick OSM. One data set had to have a small number of points (3-6), while the other had to have a large number of data points. Ultimately, the historical points and hospitals were chosen. </li>
               <li> Points were imported as both points and polygons. In locations where polygons overlapped with points, the poitns were deleted, and polygons were converted to centroids to avoid counting the same point multiple times.</li>
-              <li> After data processing, using a QGIS plugin, isochrones were plotted around each hospital centroid. The chosen mode of transport was set at walking, and isochrones were plotted within a 5 min, 10 min, 15 min, and 30 min walking distance. Originally, the 45 min isochrone was also plotted, but it was found that it caused too much visual clutter. </li>
+              <li> After data processing, using the QGIS plugin ORS Tools, isochrones were plotted around each hospital centroid. The chosen mode of transport was set at walking, and isochrones were plotted within a 5 min, 10 min, 15 min, and 30 min walking distance. Originally, the 45 min isochrone was also plotted, but it was found that it caused too much visual clutter. </li>
               <li> Then, the "count within polygon" function was applied to the isochrone polygons, and a choropleth gradient map was construed from the data set. </li>
 	      <li> For the second part, VGI was collected by biking to a location, and filling out a survey there. Survey had a bunch of classes, each with different values, which was evaluated by the individual at the location. </li>
 	      <li> To obtain the best spatial coverage, the individuals and groups biked to different areas of the city. </li>
@@ -472,9 +472,29 @@
 
             <h2>Results & Findings</h2>
 
-            <p>
-              The project found that according to VGI, there are 5 hospitals within the city of Utrecht, and over a 100 historical sites. <br> By plotting the isochrones, it was found that a person can reach the nearest hospital in the city by walking for at most 30 minutes from the majority of locations in the city, with the best coverage offered near the city centre, which is to be expected. <br> Furthermore, it was found that a lot of historical sites are located within at least 30 minutes of a hospital, but that a very small number of them are within <10 min of one. This was to be expected, as most of the hospitals were built relatively recently, compared to the historical sites which have been standing for a long period of time. <br> The largest number of historical sites is centered around Dom Toren in the city centre, which is convenient since that is also the area with the best hospital coverage. However, due to this, the map gradient around city centre could have been improved, by having a more fine distribution. <br> Finally, it can be seen that many historical sites in the far north and far south of the city lack the 30-minute walk medical coverage. While this might not pose an immediate problem, it could be worth considering establishing a new medical outpost in the region. Since another hospital would likely be obsolete for a city of Utrecht's size, care could be taken to optimise access to current medical infrastructure instead. <br> For the second part of the project, it was observed that the data points for men and women are quite scattered from one another. This was likely due to the distribution of pairs prior to data collection. Therefore, due to the spread of data points, and lack of sufficent sample size, no proper interpolation could be conducted. 
-            </p>
+            <p style="text-align: justify; text-indent: 1cm;">
+	    	The project found that according to VGI, there are 5 hospitals within the city of Utrecht, and over a 100 historical sites.
+	    </p>
+
+	    <p style="text-align: justify; text-indent: 1cm;">
+	    	By plotting the isochrones, it was found that a person can reach the nearest hospital in the city by walking for at most 30 minutes from the majority of locations in the city, with the best coverage offered near the city centre, which is to be expected.
+	    </p>
+
+	    <p style="text-align: justify; text-indent: 1cm;">
+		Furthermore, it was found that a lot of historical sites are located within at least 30 minutes of a hospital, but that a very small number of them are within <10 min of one. This was to be expected, as most of the hospitals were built relatively recently, compared to the historical sites which have been standing for a long period of time. 
+	    </p>
+
+	    <p style="text-align: justify; text-indent: 1cm;">
+	    	The largest number of historical sites is centered around Dom Toren in the city centre, which is convenient since that is also the area with the best hospital coverage. However, due to this, the map gradient around city centre could have been improved, by having a more fine distribution.
+	    </p>
+
+	    <p style="text-align: justify; text-indent: 1cm;">
+	    	Finally, it can be seen that many historical sites in the far north and far south of the city lack the 30-minute walk medical coverage. While this might not pose an immediate problem, it could be worth considering establishing a new medical outpost in the region. Since another hospital would likely be obsolete for a city of Utrecht's size, care could be taken to optimise access to current medical infrastructure instead.
+	    </p>
+
+	    <p style="text-align: justify; text-indent: 1cm;">
+	    	For the second part of the project, it was observed that the data points for men and women are quite scattered from one another. This was likely due to the distribution of pairs prior to data collection. Therefore, due to the spread of data points, and lack of sufficent sample size, no proper interpolation could be conducted. 
+	    </p>
 
             <div class="gallery">
 
@@ -495,9 +515,21 @@
 
             <h2>Reflection</h2>
 
-            <p style="text-align: justify">
-              This project was great for getting the intial handle on file management in QGIS, as well as famiarising myself with the workings and capabilities of QGIS. Additionally, it provided great insight into the start of urban mapping, working with labeled data, the pros and cons of VGI data, as well as the hands-on experience of procuring VGI data ourselves. <br> However, the most challenging part of the first segment was determining which data sets to use. There were so many possibilities and combinations that it was difficult to decide, let alone find a suitable set pair. <br> Secondly, the VGI data we collected ourselves was fun, but due to various factors, the data set ended up being unusable for the type of map we wanted to make. <br> Future improvements could include establishing a clearer structure of how to approach the assignment, instead of immediately embarking upon trying to solve it.
-            </p>
+            <p style="text-align: justify; text-indent: 1cm;">
+		This project was great for getting the intial handle on file management in QGIS, as well as famiarising myself with the workings and capabilities of QGIS. Additionally, it provided great insight into the start of urban mapping, working with labeled data, the pros and cons of VGI data, as well as the hands-on experience of procuring VGI data ourselves.
+	    </p>
+		
+            <p style="text-align: justify; text-indent: 1cm;">
+		However, the most challenging part of the first segment was determining which data sets to use. There were so many possibilities and combinations that it was difficult to decide, let alone find a suitable set pair.
+	    </p>
+
+            <p style="text-align: justify; text-indent: 1cm;">
+		Secondly, the VGI data we collected ourselves was fun, but due to various factors, the data set ended up being unusable for the type of map we wanted to make. 
+	    </p>
+
+            <p style="text-align: justify; text-indent: 1cm;">
+		Future improvements could include establishing a clearer structure of how to approach the assignment, instead of immediately embarking upon trying to solve it.
+	    </p>
 
           </div>
 
@@ -519,7 +551,7 @@
 
             <p><strong> Date: </strong> Summer 2026 (11.-26.6.) </p>
 
-            <p><strong> Study Area: </strong> The Netherlands </p>
+            <p><strong> Study Area: </strong> Utrecht, Netherlands </p>
 
           </div>
 
@@ -529,14 +561,6 @@
             <h3> Software & Tools </h3>
 
             <p> QGIS </p>
-
-            <p> ArcGIS Pro </p>
-
-            <p> Google Earth Engine </p>
-
-            <p> MapLibre GL </p>
-
-            <p> Python </p>
 
           </div>
 
@@ -573,7 +597,7 @@
 
     <div class="container">
 
-      © 2026 GIS Student Portfolio
+      © 2026 GIS Student Portfolio VG
 
     </div>
 

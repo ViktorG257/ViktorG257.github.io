@@ -40,7 +40,7 @@
     }
 
     body{
-      font-family:'Inter',sans-serif;
+      font-family:"Times New Roman", Times, serif;
       background:var(--bg);
       color:var(--text);
       line-height:1.8;
@@ -379,8 +379,8 @@
         DEM of Western Northern Brabant
       </h1>
 
-      <p style="text-align: justify;">
-        This project aimed to assess whether the present river corridor of the rivers De Dintel and De Mark in the western part of the 	Northern Brabant region in the Netherlands is different that the one mapped in the 1730s map "Brabantiae Batavae". This was 	attempted by using the DEM model of the region, and comparing it to the georeferenced version of the old map. Due to the accuracy 	issues of the old map, no conclusive answer could be reached, but a functional DEM map of the region was still obtained.
+      <p style="text-align: justify; text-indent:0.5cm">
+        This project aimed to assess whether the present river corridor of the rivers De Dintel and De Mark in the western part of the 	Northern Brabant region in the Netherlands is different that the one mapped in the 1730s map "Brabantiae Batavae". This was 	attempted by using the DEM model of the region, and comparing it to the georeferenced version of the old map. Due to the accuracy issues of the old map, no conclusive answer could be reached about the rivers, but a functional DEM map of the region was still obtained, and conclusions could be reached about the historical urbanisation of the region.
       </p>
 
       <div class="hero-meta">
@@ -390,15 +390,15 @@
         </div>
 
         <div class="meta-item">
-          Remote Sensing
+          DEM
         </div>
 
         <div class="meta-item">
-          Sustainability
+          Northern Brabant
         </div>
 
         <div class="meta-item">
-          2026
+          Historical Comparison
         </div>
 
       </div>
@@ -451,9 +451,10 @@
             <h2>Methods</h2>
 
             <ul style="text-align: justify;">
-              <li> An old map of appropriate scale of a region in the Netherlands which had rivers was found on www.oldmapsonline.org. A map titled <em> Brabantiae Batavae pars occidentalis sive Antverpiensis tetrarchiae pars septentrionalis, comprehendens baroniam Bredanam, marchionatum Bergensem ad Zomam, aliasq. minores ditiones </em> was chosen. </li>
-              <li> Public Lidar data was downloaded for the Netherlands to create the DSM and DTM, and was processed in QGIS. The data raster was clipped to only the region of interest to decrease the file size, and the required rendering time. </li>
+              <li> An old map of appropriate scale of a region in the Netherlands which had rivers was found on www.oldmapsonline.org. A map titled <em> Brabantiae Batavae pars occidentalis sive Antverpiensis tetrarchiae pars septentrionalis, comprehendens baroniam Bredanam, marchionatum Bergensem ad Zomam, aliasq. minores ditiones </em> was chosen, and overlayed on top of a standard map obtained via QMS. </li>
+              <li> Public Lidar data was downloaded for the Netherlands using the PDOK services QGIS plugin to create the DSM and DTM, and was processed in QGIS. The data raster was clipped to only the region of interest to decrease the file size, and the required rendering time. </li>
               <li> The DSM and DTM were stylized to be clearly visible, and attractive to the eye. A colour gradient boundary was chosen to emphasize the values which were closer to the modern river banks, since they have relatively small elevation changes. A relief shading was added for both data sets to add visual texture and improve visual recognition. </li>
+	      <li> The elevation was displayed as relative elevation to Normal Amsterdam Level (NAP). This is the standardised elevation height in the Netherlands, and is approximately equal to the height of the Northern Sea in Amsterdam. </li>
               <li> The old map was manually georeferenced so that it could be imported as a spatial data file into the DEM map. This was achieved by mainly comparing the human settlements and roads displayed on the old map to their modern counterparts, since they usually* are not as prone to change as natural elements. After being imported, the map was clipped to only display the region of interest. </li>
               <li> Different layers were overlayed, combined, and stylized to obtain various maps and infer results to the research question from them. </li>
             </ul>
@@ -465,8 +466,20 @@
 
             <h2>Results & Findings</h2>
 
-            <p style="text-align: justify;">
-		This project found several inaccuracies in the map of the region from 1730s. The main issues included the relative positions of settlements or other map elements, as well as their proportionality on the map compared to their relative size. Due to this, while the general shape of the rivers seems to have remained unchanged, due to misalignment and disproportionality, no conclusive evidence can be obtained. <br> The DEM map of the region shows that the southern part of the ROI has a higher natural terrain elevation. It also shows that the river corridors around De Dintel and De Mark are relatively uniform in elevation, which would indicate that the rivers were not wild or had too strong of a flow over the years, which would carve a more drastic elevation change into the terrain. <br> Finally, the map nicely shows how some of the older settlements from the 1730s map grew and developed. Breda, which was the capital of the barony at the time, grew to be the central city of the region. Other marked cities, such as Zevenbergen and Oudenbosch, similarly grew, with the notable change being the merger of Etten and Leur into a single city as a result of urbanisation. Finally, some of the modern settlements did not exist on the 1730s map, which shows that they only developed after that time period, which provides historical insight into the urbanisation process of the region. <br> Further research could involve using maps from other time periods to map urban development of the region throughout history, and also potentially find a more suitable map for comparing the river corridors.
+            <p style="text-align: justify; text-indent:0.5cm">
+		This project found several inaccuracies in the map of the region from 1730s. The main issues included the relative positions of settlements or other map elements, as well as their proportionality on the map compared to their relative size. Due to this, while the general shape of the rivers seems to have remained unchanged, due to misalignment and disproportionality, no conclusive evidence can be obtained. 
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		The DEM map of the region shows that the southern part of the ROI has a higher natural terrain elevation. It also shows that the river corridors around De Dintel and De Mark are relatively uniform in elevation, which would indicate that the rivers were not wild or had too strong of a flow over the years, which would carve a more drastic elevation change into the terrain. 
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		Finally, the map nicely shows how some of the older settlements from the 1730s map grew and developed. Breda, which was the capital of the barony at the time, grew to be the central city of the region. Other marked cities, such as Zevenbergen and Oudenbosch, similarly grew, with the notable change being the merger of Etten and Leur into a single city as a result of urbanisation. Finally, some of the modern settlements did not exist on the 1730s map, which shows that they only developed after that time period, which provides historical insight into the urbanisation process of the region. 
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		Further research could involve using maps from other time periods to map urban development of the region throughout history, and also potentially find a more suitable map for comparing the river corridors.
             </p>
 
             <div class="gallery">
@@ -493,8 +506,24 @@
 
             <h2>Reflection</h2>
 
-            <p style="text-align: justify;">
-		This project was a great way to learn how to access, download and process .tiff data. Creating the DEM map felt amazing, 		as it felt like a first proper, official map created in my GIS career. While the project was simple enough to follow, 			there were some challenges along the way. <br> The first challenge was choosing a suitable region, or finding a suitable 		map. Depending on the approach, this could have taken a long period of time with no visible results. Since every map was 		made in different scale, outlined different things, and displayed various regions, there were many things to consider 			during the selection process, and that is without adding the additional variable of being able to choose <em> when </em> 		does the map display the region. <br> Secondly, after the map was found, trying to georeference it could pose issues, 			depending on how accurately it was created, and what it displayed. After some point, even doubling the number of 			georeference points did not seem to fix the small misalignment, which was frustrating. Therefore, the map choice heavily 		influenced how easy this part of the assignment would be. <br> Finally, choosing the proper colour gradient, gradient 			intensity, overlay, and transparency for all of the layers was the biggest challenge of them all. While some combinations 		worked great as a pair, the minute the 3rd layer was added, nothing was properly visible anymore... Also, this part 			involved the greatest subjectivity, as something which I find aesthetically pleasing might not seem as such to others. 			<br> For future improvements, a set of pre-prepared maps which work well could be provided, or some recommendations could 		be given to that end, just to make the process of merging the old map with the other raster layers less time-demanding. 		Also, it might be better to make multiple maps with only 2 layers overlayed at a time, rather than trying to fit 			everything in at once. 
+            <p style="text-align: justify; text-indent:0.5cm">
+		This project was a great way to learn how to access, download and process .tiff data. Creating the DEM map felt amazing, 		as it felt like a first proper, official map created in my GIS career. While the project was simple enough to follow, 			there were some challenges along the way. 
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		The first challenge was choosing a suitable region, or finding a suitable 		map. Depending on the approach, this could have taken a long period of time with no visible results. Since every map was 		made in different scale, outlined different things, and displayed various regions, there were many things to consider 			during the selection process, and that is without adding the additional variable of being able to choose <em> when </em> 		does the map display the region. 
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		Secondly, after the map was found, trying to georeference it could pose issues, 			depending on how accurately it was created, and what it displayed. After some point, even doubling the number of 			georeference points did not seem to fix the small misalignment, which was frustrating. Therefore, the map choice heavily 		influenced how easy this part of the assignment would be. 
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		Finally, choosing the proper colour gradient, gradient 			intensity, overlay, and transparency for all of the layers was the biggest challenge of them all. While some combinations 		worked great as a pair, the minute the 3rd layer was added, nothing was properly visible anymore... Also, this part 			involved the greatest subjectivity, as something which I find aesthetically pleasing might not seem as such to others. 			
+            </p>
+
+	    <p style="text-align: justify; text-indent:0.5cm">
+		For future improvements, a set of pre-prepared maps which work well could be provided, or some recommendations could 		be given to that end, just to make the process of merging the old map with the other raster layers less time-demanding. 		Also, it might be better to make multiple maps with only 2 layers overlayed at a time, rather than trying to fit 			everything in at once. 
             </p>
 
           </div>
@@ -517,7 +546,7 @@
 
             <p><strong> Date: </strong> Summer 2026 (11.-26.6.) </p>
 
-            <p><strong> Study Area: </strong> The Netherlands </p>
+            <p><strong> Study Area: </strong> Northern Brabant, The Netherlands </p>
 
           </div>
 
@@ -528,13 +557,7 @@
 
             <p> QGIS </p>
 
-            <p> ArcGIS Pro </p>
-
-            <p> Google Earth Engine </p>
-
-            <p> MapLibre GL </p>
-
-            <p> Python </p>
+            <p> ArcGIS Online </p>
 
           </div>
 
@@ -571,7 +594,7 @@
 
     <div class="container">
 
-      © 2026 GIS Student Portfolio
+      © 2026 GIS Student Portfolio VG
 
     </div>
 

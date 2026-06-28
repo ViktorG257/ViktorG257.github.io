@@ -38,7 +38,7 @@
     }
 
     body{
-      font-family:'Inter',sans-serif;
+      font-family:"Times New Roman", Times, serif;
       background:var(--bg);
       color:var(--text);
       line-height:1.7;
@@ -294,13 +294,18 @@
        CONTACT
     ======================= */
 
-    .contact-card{
-      background:var(--surface);
-      padding:2rem;
-      border-radius:var(--radius);
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-    }
+    .contact-card {
+  	background: var(--surface);
+  	padding: 2rem;
+  	border-radius: var(--radius);
+  	border: 1px solid var(--border);
+  	box-shadow: var(--shadow);
+
+  	display: flex;
+  	justify-content: space-between;
+  	align-items: center;
+  	gap: 2rem;
+	}
 
     .contact-card p{
       margin-bottom:1rem;
@@ -311,7 +316,8 @@
   	height: 220px;
   	border-radius: 50%;
  	overflow: hidden;
-  	border: 2px solid var(--border);
+  	border: 2px solid var(--border)
+	flex-shrink: 0;
 	}
 
     .contact-image img {
@@ -378,6 +384,7 @@
         </div>
 
         <div class="nav-links">
+	  <a href="#gis">GIS</a>
           <a href="#about">About</a>
           <a href="#maps">Maps</a>
           <a href="#skills">Skills</a>
@@ -439,6 +446,40 @@
 
   </section>
 
+
+  <!-- ======================
+       GIS
+  ======================= -->
+
+  <section id="gis">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2> What is GIS? </h2>
+
+      </div>
+
+      <div class="about-box">
+
+        <p style="text-align: justify; text-indent: 1cm;">
+		Geographic Information Systems (GIS) is an umbrella term which incorporates all kinds of data sets, data management, and data processing required to create maps which represent spatial data, or geographic data in general. GIScience is the academic discipline which studies the applications, usage, an development of GIS.  
+        </p>
+	
+	<p style="text-align: justify; text-indent: 1cm;">
+		GIS technology has many practical applications. By allowing for visual representation of spatial data, it allows the users to infer data correlations which might be difficult to visualise otherwise. Additionally, GIS data processing can allow for a unique combination and synthesis of arithmetic, scientific data, with the socio-economic data, which is seemingly impossible to do in a coherent manner at the first glance. Recently, it has been used in urban planning & development, sustainability, environmental sciences, geology, public healthcare, archaeology, precision agriculture, climate studies & meteorology, amongst other things. The urban planning involves the most standard application of mapping in simple instances, while precision agriculture utilises open satellite data to measure plant health using NDVI as their indicator, which allows the unhealthy plants to be replaced or cared for, and leaves the healthy plants alone, which reduces the usage of fertilizers and increases the crop yield.
+	</p>
+
+	<p style="text-align: justify; text-indent: 1cm;">
+		Most common softwares used to apply GIS are ArcGIS, which is a private subscription-based software, and QGIS, which is a free open-source software. Both come with their own sets of advantages and disadvantages, as well as slightly different processing capabilities, so the software should be carefully chosen for each individual project. 
+	</p>
+
+      </div>
+
+    </div>
+
+  </section>
+
   <!-- ======================
        ABOUT
   ======================= -->
@@ -454,9 +495,12 @@
 
       <div class="about-box">
 
-        <p style="text-align: justify;">
+        <p style="text-align: justify; text-indent: 1cm;">
 
-	  Dear reader, hello and welcome! My name is Viktor Gombar, and I was born in 2005 in Croatia, where I also grew up. I 			  predominantly study physics and chemistry as a part of the DDLP programme at University College Utrecht in Utrecht, Netherlands.
+	  Dear reader, hello and welcome! My name is Viktor Gombar, and I was born in 2005 in Croatia, where I also grew up. I predominantly study physics and chemistry as a part of the DDLP programme at University College Utrecht in Utrecht, Netherlands.
+	</p>
+
+	<p style="text-align: justify; text-indent: 1cm;">
 	  This project is my first interaction with the GIS as a whole, but I am very interested in data management & presentation, 	  	  cartography, and spatial data display. I enjoy working on projects which help provide an overview of a problem and highlight the 	  regions which require focused development and have potential for future improvement, as this can be interdisciplinarily linked 	  to the sustainability part of physics and chemistry—which are my fields of interest. I hope that this knowledge and skillset can 	  someday allow me to use spatial data display and management to better incorporate my scientific research in practice!
 	  
         </p>
@@ -495,7 +539,7 @@
 
               <h3> Choropleth Maps of the World </h3>
 
-              <p style="text-align: justify;">
+              	<p style="text-align: justify; text-indent: 0.5cm;">
                 Stationary and interactive world maps made with the help of QGIS and Leaflet. The maps display the UN sustainanable 			development goals (SDGs) by mapping their targets and indicator data for individual countries. The data was obtained from 		the official UN websites. 
               </p>
 
@@ -516,8 +560,8 @@
 
               <h3> Analysis of Spatial Data in Utrecht </h3>
 
-              <p style="text-align: justify;">
-                QGIS was used to obtain and present spatial data for Utrecht. An isochrone map was created to present the number of 			historical sites within a walking distance of a hospital. Additionally, VGI data was collected around the city, and 			processed using QGIS.
+	<p style="text-align: justify; text-indent: 0.5cm;">
+                QGIS was used to obtain and present spatial data for Utrecht. An isochrone map was created to present the number of 			historical sites within a walking distance of a hospital. Additionally, VGI data was collected around the city, and 			processed using QGIS, although with limited success.
               </p>
 
             </div>
@@ -537,7 +581,7 @@
 
               <h3> DEM of Western Northern Brabant </h3>
 
-              <p style="text-align: justify;">
+              <p style="text-align: justify; text-indent: 0.5cm;">
                 QGIS and ArcGIS Online were used to plot the digital elevation model (DEM) for the western part of the Northern Brabant 		region of the Netherlands. The result was compared to the map from 1730s to determine whether the river corridor had 			changed over time. 
               </p>
 
@@ -558,7 +602,7 @@
 
               <h3> NDVI Maps of Croatia </h3>
 
-              <p style="text-align: justify;">
+              <p style="text-align: justify; text-indent: 0.5cm;">
                 QGIS and ArcGIS Online were used to process Sentinel 2 data from Google Earth Engine. A map was created to display the 			NDVI for the Medimurje region, as well as entire Croatia, in 2020 and 2025, along with the NDVI change in that time 			period.
               </p>
 
@@ -577,9 +621,9 @@
 
             <div class="map-content">
 
-              <h3> Land Cover Classification via Machine Learning </h3>
+              <h3> Land Cover Classification via ML </h3>
 
-              <p style="text-align: justify;">
+              <p style="text-align: justify; text-indent: 0.5cm;">
                 ArcGIS Pro was used to determine the land cover classification (LCC) in Utrecht. The process was firstly done visually, 		and was then repeated using supervised and unsupervised machine learning to obtain different results.
               </p>
 
@@ -600,7 +644,7 @@
 
               <h3> Multicriteria Analysis </h3>
 
-              <p style="text-align: justify;">
+              <p style="text-align: justify; text-indent: 0.5cm;">
                 Analysis and discussion of multicriteria analysis and its applications for research purposes, as well as the applications 		for societal development. Exposition of the concept, as well its future potential. Includes a hypothetical workflow 			scheme.
               </p>
 
@@ -641,8 +685,11 @@
           <div class="skill">Cartography</div>
           <div class="skill">Python</div>
           <div class="skill">JavaScript</div>
+	  <div class="skill"> HTML </div>
+	  <div class="skill"> CSS </div>
           <div class="skill">GeoJSON</div>
-          <div class="skill">MapLibre GL</div>
+          <div class="skill"> MCA </div>
+	  <div class="skill"> Georeferencing </div>
 
         </div>
 
@@ -669,8 +716,9 @@
       <div class="contact-card">
 	<div class="contact-image">
               <img src="website_images/Viktor.jpg">
-            </div>
-
+        </div>
+      
+      <div class="contact-text">
         <p><strong> Name: </strong> Viktor Gombar </p>
 
         <p><strong> Email: </strong> v.gombar@students.uu.nl (academic), viktor.gombar1@gmail.com (private) </p>
@@ -680,6 +728,7 @@
 	<p><strong> GitHub: </strong> ViktorG257 </p>
 
         <p><strong> LinkedIn: </strong> N/A </p>
+      </div>
 
       </div>
 
