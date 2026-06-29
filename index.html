@@ -148,10 +148,17 @@
       gap:0.8rem;
     }
 
-    .hero-card li{
-      color:var(--muted);
-      font-size:0.96rem;
-    }
+    .hero-card {
+   	 background: rgba(255, 255, 255, 0.18);
+    	backdrop-filter: blur(8px);
+    	-webkit-backdrop-filter: blur(8px);
+
+    	border: 1px solid rgba(255, 255, 255, 0.3);
+   	border-radius: var(--radius);
+    	padding: 2rem;
+
+    	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+	}
 
     .button{
       display:inline-block;
@@ -163,6 +170,34 @@
       font-weight:600;
       transition:0.2s ease;
     }
+
+
+    .hero {
+    	background-image: url("website_images/Cover.png");
+   	 background-size: cover;      
+    	background-position: center; 
+    	background-repeat: no-repeat;
+	padding: 6rem 0;             
+	}
+
+    .hero p {
+    	color: black;
+    	max-width: 700px;
+    	font-size: 1.1rem;
+
+    	display: inline-block;
+    	padding: 1rem 1.5rem;
+    	margin-top: 1rem;
+
+    	background: rgba(255, 255, 255, 0.18);
+    	backdrop-filter: blur(8px);
+    	-webkit-backdrop-filter: blur(8px);
+
+    	border: 1px solid rgba(255, 255, 255, 0.3);
+    	border-radius: 12px;
+
+   	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+	}
 
     .button:hover{
       opacity:0.92;
@@ -413,10 +448,10 @@
             Student GIS & Cartography Portfolio
           </h1>
 
-          <p>
-            A professional showcase of mapping projects,
+          <p style="text-align: justify">
+            <b> A professional showcase of mapping projects,
             spatial analysis, remote sensing,
-            and cartographic design work.
+            and cartographic design work. </b>
           </p>
 
           <a href="#maps" class="button">
@@ -721,11 +756,11 @@
       <div class="contact-text">
         <p><strong> Name: </strong> Viktor Gombar </p>
 
-        <p><strong> Email: </strong> v.gombar@students.uu.nl (academic), viktor.gombar1@gmail.com (private) </p>
+        <p><strong> Email: </strong> <a href="v.gombar@students.uu.nl"> v.gombar@students.uu.nl </a> (academic), <a href="viktor.gombar1@gmail.com"> viktor.gombar1@gmail.com </a> (private) </p>
 
-        <p><strong> University: </strong> University College Utrecht (UCU), Utrecht University </p>
+        <p><strong> University: </strong> <a href="https://www.uu.nl/en/organisation/university-college-utrecht"> University College Utrecht (UCU) </a>, Utrecht University </p>
 
-	<p><strong> GitHub: </strong> ViktorG257 </p>
+	<p><strong> GitHub: </strong> <a href="https://github.com/ViktorG257"> ViktorG257 </a> </p>
 
         <p><strong> LinkedIn: </strong> N/A </p>
       </div>
@@ -744,7 +779,7 @@
 
     <div class="container">
 
-      © 2026 GIS Student Portfolio
+      © 2026 GIS Student Portfolio VG
 
     </div>
 

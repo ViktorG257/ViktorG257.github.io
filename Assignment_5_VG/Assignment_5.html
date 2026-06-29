@@ -130,28 +130,32 @@
       font-weight:500;
     }
 
-    /* =========================
-       FEATURE IMAGE
-    ========================== */
+/* =========================
+   FEATURE IMAGE
+========================== */
 
-    .feature-image{
-      height:500px;
-      background:linear-gradient(
-        135deg,
-        #dbeafe,
-        #eff6ff
-      );
-      border-radius:var(--radius);
-      border:1px solid var(--border);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#64748b;
-      font-size:1.2rem;
-      font-weight:600;
-      margin-bottom:5rem;
-      box-shadow:var(--shadow);
-    }
+.feature-image {
+    display: inline-block;
+    margin: 0 auto 5rem;
+
+    border-radius: var(--radius);
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+
+    background: none;
+}
+
+.container {
+    text-align: center;
+}
+
+.feature-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}	
 
     /* =========================
        CONTENT
@@ -393,7 +397,7 @@
       </h1>
 
       <p style="text-align: justify; text-indent:0.5cm;">
-        This project assessed how precise of a land cover classification can be automatically done using machine learning (ML). It tested both supervised ML and unsupervised ML, with the unsupervised ML being further split into pixel-based and object-based. The project used a Sentinel-2 data of Utrecht, adapted to the near-IR band configuration. Both supervised and unsupervised object-based analysis produced great results, with the unsupervised pixel-based classification somewhat lacking.
+        This project assessed how precise of a land cover classification can be automatically done using machine learning (ML). It tested both supervised ML and unsupervised ML, with the unsupervised ML being further split into pixel-based and object-based. The project used a Sentinel-2 data of Utrecht, adapted to the short-wave IR band configuration. Both supervised and unsupervised object-based analysis produced great results, with the unsupervised pixel-based classification somewhat lacking.
       </p>
 
       <div class="hero-meta">
@@ -459,19 +463,8 @@
             </p>
 
             <p style="text-align: justify; text-indent:0.5cm">
-              Then, supervised and unsupervised classification was conducted. An unsupervised classification means that the machine has full control over how it defines a certain land cover class, and then human input can correct the class names afterwards. A supervised classification utilises a pre-recorder and pre-labeled test sample, and attempts to match the data on map to the test sample, recreating the human analysis. Therefore, a test sample was created for supervised classification
+              The aim of the project was to compare the outputs of the supervised and unsupervised classification methods. An unsupervised classification means that the machine has full control over how it defines a certain land cover class, and then human input can correct the class names afterwards. There are two different kinds of unsupervised classification; a pixel-based one, and an object-based one. A supervised classification utilises a pre-recorder and pre-labeled test sample, and attempts to match the data on map to the test sample, recreating the human analysis.
             </p>
-
-            <p>
-              This section can explain:
-            </p>
-
-            <ul>
-              <li>Research objectives</li>
-              <li>Study area</li>
-              <li>Environmental or social relevance</li>
-              <li>Why GIS methods were appropriate</li>
-            </ul>
 
           </div>
 
@@ -480,16 +473,15 @@
 
             <h2>Methods</h2>
 
-            <p>
-              Describe the GIS workflow and methods used.
-            </p>
-
-            <ul>
-              <li>Data collection</li>
-              <li>Spatial analysis techniques</li>
-              <li>Remote sensing processing</li>
-              <li>Cartographic design choices</li>
-              <li>Software and tools used</li>
+            <ul style="text-align: justify;">
+	      <li> A supervised pixel-based classification course was completed online to familiarise myself with the process and the logic behind it. </li>
+              <li> Sentinel-2 Data for Utrecht was added into ArcGIS Pro, and the colour bands were adjusted to Red:B12, Green:B8A, Blue:B4, which resulted in the short-wave IR map display. </li>
+              <li> Custom classes were made based off the map visibility, and known land cover types. The spectral samples of each of the classes was recorded. </li>
+              <li> A test sample was created by manually classifying known land cover types into each of the sample classes. 5 samples per class were taken. </li>
+              <li> Unsupervised pixel-based and unsupervised object-based classifications were conducted. Class names and colourations were adjusted afterwards for the pixel-based analysis. </li>
+              <li> Using the test sample as a reference point, a supervised pixel-based analysis was conducted. The three results were compared and contrasted. </li>
+	      <li> There was an attempt at creating a confusion matrix, which unfortunetely failed. </li>
+	      <li> Finally, the NDVI map of Utrecht was taken, by using the formula NDVI=Band 3-Band 6, and was then normalized and the same colour gradient from Assignment 4 was applied. </li>
             </ul>
 
           </div>
@@ -499,19 +491,28 @@
 
             <h2>Results & Findings</h2>
 
-            <p>
-              Explain the major findings of the project.
-              Discuss spatial patterns,
-              environmental implications,
-              or planning recommendations.
+            <p style="text-align: justify; text-indent:0.5cm">
+              By comparing the maps, several things can be concluded. Firstly, the supervised classification performed the best, and was the most accurate in classification itself. However, it also required the most human input, and led to a loss of colour gradient in its classification. Nevertheless, its performance is admirable, and the issue of the colour gradient could be resolved by adding more classes into the test sample, which can then be re-used in the future runs, thereby making it a one-off capital investment.
             </p>
+
+            <p style="text-align: justify; text-indent:0.5cm">
+		The object-based unsupervised classification yielded the most accurate map replication, compared to the original. However, this technically did not classify any land cover type, but merely reproduced the image. Furthermore, the image was slightly smudged, compared to the sharp original. Nevertheless, considering this method required no human input, it is extremely cost-effective.
+	    </p>
+
+            <p style="text-align: justify; text-indent:0.5cm">
+		The unsupervised pixel-based classification performed the worst. Not only did it require human input for correction, it also mistook water for concrete, and made other identification errors. Compared to the other two, it offers no clear benefit, and is therefore deemed the worst of the 3 ML classification methods.
+	    </p>
+
+            <p style="text-align: justify; text-indent:0.5cm">
+		The NDVI map of Utrecht shows generally good vegetation density and health in the city. The vegetation is denser outside of the city than inside it, which is to be expected. The areas around the city centre have the lowest density of vegetation, which could be looked into in the future, as that is also the part of the city which heats up the most. And if this year has taught us anything, it is that the Netherlands can, in fact, heat up. However, there might be some developmental issues, as that region of the city is full of historical sites. Therefore, having a general increase in vegetation density in the residential areas of the city could also help to alleviate the potential heat island effect, and make the city more pleasent. On this map, the canals are also visible in orange, due to the nature of water's interaction with the IR radiation. 
+	    </p>
 
             <div class="gallery">
 
               <div class="gallery-item">
                 <img src="Spectral_Profile_2.png">
 		    <p class="caption">
-        		Spectral profile of selected land cover classes.
+        		Spectral profile of selected land cover classes
     		    </p>
               </div>
 
@@ -559,16 +560,8 @@
 
             <h2>Reflection</h2>
 
-            <p>
-              Discuss lessons learned,
-              project limitations,
-              and ideas for future improvements.
-            </p>
-
-            <p>
-              This section is useful for showing critical thinking,
-              technical growth,
-              and understanding of spatial analysis.
+            <p style="text-align: justify; text-indent:0.5cm">
+		This was an interesting exercise for learning about the collaboration between men and machines. It provided a perspective on how the two can build upon each other, yet also the limitations of each working individually. For future research, collecting a larger, less generalised test sample data set of classes could help to make the supervised classification even more precise, thereby rendering human supervision and analysis obsolete. Additionally, it could be tested whether the AI can identify similar land cover types on different map samples by using the Utrecht test data, or whether that will cause it to malfunction, or its accuracy to drastically decrease. However, overall, if the ML assisted classification system works properly, it could be used to speed up the global land cover classificaiton process, allowing for faster information sharing and responses to potential global sustainability issues, such as deforestation, intensive agriculture, or even in dealing with the consequences of natural disasters, i.e. tornadoes, fires, tsunamis, earthquakes, volcano eruptions etc.
             </p>
 
           </div>
@@ -603,23 +596,6 @@
             <p> ArcGIS Pro </p>
 
             <p> Google Earth Engine </p>
-
-          </div>
-
-          <!-- DOWNLOADS -->
-          <div class="sidebar-card">
-
-            <h3>Downloads</h3>
-
-            <a href="#" class="button">
-              Download Map PDF
-            </a>
-
-            <br><br>
-
-            <a href="#" class="button">
-              View Interactive Map
-            </a>
 
           </div>
 
